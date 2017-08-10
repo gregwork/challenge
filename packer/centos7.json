@@ -1,0 +1,27 @@
+{
+  "builders": [
+    {
+      "guest_os_type": "RedHat_64",
+      "iso_checksum_type": "sha1",
+      "iso_checksum": "71a7aa147877b413497cdff5b1e0aa5bc0c9484f",
+      "iso_url": "http://mirror.internode.on.net/pub/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "type": "virtualbox-iso",
+      "hard_drive_interface": "scsi",
+      "disk_size": 4000,
+      "boot_command": [
+        "<esc><wait>",
+        "vmlinuz ",
+        "initrd=initrd.img ",
+        "inst.stage2=hd:LABEL=CentOS\\x207\\x20x86_64 ",
+        "ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg ",
+        "text ",
+        "<enter>"
+      ],
+      "http_directory": "http"
+    }
+  ],
+  "post-processors": []
+}
