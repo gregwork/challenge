@@ -10,7 +10,7 @@
       "ssh_username": "vagrant",
       "type": "virtualbox-iso",
       "hard_drive_interface": "scsi",
-      "disk_size": 4000,
+      "disk_size": 3000,
       "post_shutdown_delay": "30s",
       "boot_command": [
         "<esc><wait>",
