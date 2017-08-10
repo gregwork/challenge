@@ -11,6 +11,7 @@
       "type": "virtualbox-iso",
       "hard_drive_interface": "scsi",
       "disk_size": 4000,
+      "post_shutdown_delay": "30s",
       "boot_command": [
         "<esc><wait>",
         "vmlinuz ",
