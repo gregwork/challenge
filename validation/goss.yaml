@@ -18,3 +18,7 @@ command:
     exit-status: 0
     stdout:
       - "date.timezone => Australia/Adelaide => Australia/Adelaide"
+service:
+  httpd:
+    enabled: true
+    running: true

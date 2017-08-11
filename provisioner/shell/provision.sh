@@ -20,6 +20,21 @@ function install_package {
   fi
 }
 
+function start_service {
+  local SERVICE=$1
+
+  if ! systemctl is-enabled ${SERVICE} &>/dev/null ; then
+    >2 echo "Service ${SERVICE} not enabled; enabling..."
+    systemctl enable ${SERVICE}
+  fi
+
+  if ! systemctl is-active ${SERVICE} &>/dev/null ; then
+    >2 echo "Service ${SERVICE} not active; starting..."
+    systemctl start ${SERVICE}
+  fi
+}
+
+
 function set_system_timezone {
   local TIMEZONE=$1
 
@@ -60,3 +75,4 @@ check_user
 install_package 'httpd'
 install_package 'php'
 set_timezone 'Australia/Adelaide'
+start_service 'httpd'
