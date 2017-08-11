@@ -11,4 +11,14 @@ function check_user {
   fi
 }
 
+function install_package {
+  local PACKAGE=$1
+
+  if ! rpm -q ${PACKAGE} &>/dev/null ; then
+    >2 echo "Package ${PACKAGE} not installed; installing..."
+    yum --assumeyes install ${PACKAGE}
+  fi
+}
+
 check_user
+install_package httpd
