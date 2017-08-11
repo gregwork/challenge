@@ -27,3 +27,9 @@ service:
   httpd:
     enabled: true
     running: true
+http:
+  http://localhost/phpinfo.php:
+    status: 200
+    body:
+      - "<title>phpinfo()</title>"
+      - "/date\\.timezone.+Australia\\/Adelaide/"
