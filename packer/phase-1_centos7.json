@@ -22,6 +22,14 @@
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
       "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--rtcuseutc",
+          "on"
+        ]
+      ],
       "vm_name": "base-centos7"
     }
   ],
