@@ -1,11 +1,11 @@
 {
   "builders": [
     {
-      "type": "virtualbox-ovf",
-      "source_path": "output-virtualbox-iso/base-centos7.ovf",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "source_path": "output-virtualbox-iso/base-centos7.ovf",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "type": "virtualbox-ovf",
       "vboxmanage": [
         [
           "modifyvm",
@@ -17,38 +17,39 @@
       "vm_name": "centos7-shell"
     }
   ],
+  "post-processors": [
+    {
+      "output": "centos7-shell.box",
+      "type": "vagrant"
+    }
+  ],
   "provisioners": [
     {
-      "type": "shell",
       "inline": [
         "mkdir /var/tmp/provisioning"
-      ]
+      ],
+      "type": "shell"
     },
     {
-      "type": "file",
+      "destination": "/var/tmp/provisioning",
       "source": "../validation",
-      "destination": "/var/tmp/provisioning"
+      "type": "file"
     },
     {
-      "type": "file",
+      "destination": "/var/tmp/provisioning",
       "source": "../provisioner/shell",
-      "destination": "/var/tmp/provisioning"
+      "type": "file"
     },
     {
-      "type": "shell",
       "execute_command": "echo 'vagrant' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
       "inline": [
         "chown -R root:root /var/tmp/provisioning",
         "mv /var/tmp/provisioning /root/",
         "/root/provisioning/shell/provision.sh",
         "/root/provisioning/validation/goss-linux-amd64 --gossfile /root/provisioning/validation/goss.yaml validate"
-      ]
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "output": "centos7-shell.box"
+      ],
+      "type": "shell"
     }
   ]
 }
+
