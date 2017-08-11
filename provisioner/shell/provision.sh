@@ -2,7 +2,6 @@
 
 set -o errexit
 set -o nounset
-set -o xtrace
 
 function check_user {
   if [[ ${EUID} -ne 0 ]]; then
