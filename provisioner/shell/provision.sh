@@ -71,8 +71,21 @@ function set_timezone {
   set_php_timezone "${TIMEZONE}"
 }
 
+function create_phpinfo {
+  local FILE="/var/www/html/phpinfo.php"
+
+  if [ ! -e "${FILE}" ] ; then
+    >2 echo "phpinfo() not found; creating..."
+
+    cat > "${FILE}" <<EOF
+    <?php phpinfo(); ?>
+EOF
+fi
+}
+
 check_user
 install_package 'httpd'
 install_package 'php'
 set_timezone 'Australia/Adelaide'
 start_service 'httpd'
+create_phpinfo

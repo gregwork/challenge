@@ -13,6 +13,11 @@ file:
     filetype: "file"
     contains:
       - "Australia/Adelaide"
+  /var/www/html/phpinfo.php:
+    exists: true
+    filetype: "file"
+    contains:
+      - "<?php phpinfo(); ?>"
 command:
   php -i:
     exit-status: 0
