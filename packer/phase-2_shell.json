@@ -1,0 +1,54 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "output-virtualbox-iso/base-centos7.ovf",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--rtcuseutc",
+          "on"
+        ]
+      ],
+      "vm_name": "centos7-shell"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "mkdir /var/tmp/provisioning"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "../validation",
+      "destination": "/var/tmp/provisioning"
+    },
+    {
+      "type": "file",
+      "source": "../provisioner/shell",
+      "destination": "/var/tmp/provisioning"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
+      "inline": [
+        "chown -R root:root /var/tmp/provisioning",
+        "mv /var/tmp/provisioning /root/",
+        "/root/provisioning/shell/provision.sh",
+        "/root/provisioning/validation/goss-linux-amd64 --gossfile /root/provisioning/validation/goss.yaml validate"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "centos7-shell.box"
+    }
+  ]
+}
