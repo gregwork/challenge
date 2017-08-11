@@ -57,6 +57,6 @@ function set_timezone {
 }
 
 check_user
-install_package httpd
-install_package php
+install_package 'httpd'
+install_package 'php'
 set_timezone 'Australia/Adelaide'
