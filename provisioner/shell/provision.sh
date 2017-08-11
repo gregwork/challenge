@@ -83,9 +83,23 @@ EOF
 fi
 }
 
+function open_firewall_port {
+  local SERVICE=$1
+
+  if ! firewall-cmd --zone=public --query-service=${SERVICE} ; then
+    >2 echo "Firewall port for ${SERVICE} not open; adding rule..."
+    firewall-cmd --permanent --zone=public --add-service=http
+    firewall-cmd --reload
+  fi
+}
+
+
 check_user
 install_package 'httpd'
 install_package 'php'
 set_timezone 'Australia/Adelaide'
 start_service 'httpd'
 create_phpinfo
+open_firewall_port 'http'
+
+echo "Completed"
