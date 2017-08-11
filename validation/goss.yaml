@@ -8,3 +8,13 @@ file:
     exists: true
     filetype: "symlink"
     linked-to: "../usr/share/zoneinfo/Australia/Adelaide"
+  /etc/php.d/zz-timezone.ini:
+    exists: true
+    filetype: "file"
+    contains:
+      - "Australia/Adelaide"
+command:
+  php -i:
+    exit-status: 0
+    stdout:
+      - "date.timezone => Australia/Adelaide => Australia/Adelaide"

@@ -38,10 +38,22 @@ function set_system_timezone {
   fi
 }
 
+function set_php_timezone {
+  local TIMEZONE=$1
+
+  CURRENT_TZ=$(php -i | grep "^date.timezone")
+
+  if [[ ! "${CURRENT_TZ}" =~ "${TIMEZONE}" ]]; then
+    >2 echo "PHP TZ is not set to ${TIMEZONE}; setting..."
+    echo "date.timezone=${TIMEZONE}" > /etc/php.d/zz-timezone.ini
+  fi
+}
+
 function set_timezone {
   local TIMEZONE=$1
 
   set_system_timezone "${TIMEZONE}"
+  set_php_timezone "${TIMEZONE}"
 }
 
 check_user
