@@ -38,7 +38,13 @@ function set_system_timezone {
   fi
 }
 
+function set_timezone {
+  local TIMEZONE=$1
+
+  set_system_timezone "${TIMEZONE}"
+}
+
 check_user
 install_package httpd
 install_package php
-set_system_timezone 'Australia/Adelaide'
+set_timezone 'Australia/Adelaide'
