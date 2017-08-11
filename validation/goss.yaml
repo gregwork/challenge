@@ -3,3 +3,8 @@ package:
     installed: true
   php:
     installed: true
+file:
+  /etc/localtime:
+    exists: true
+    filetype: "symlink"
+    linked-to: "../usr/share/zoneinfo/Australia/Adelaide"

@@ -20,6 +20,25 @@ function install_package {
   fi
 }
 
+function set_system_timezone {
+  local TIMEZONE=$1
+
+  EXPECTED_TZFILE="/usr/share/zoneinfo/${TIMEZONE}"
+
+  if [ ! -e ${EXPECTED_TZFILE} ] ; then
+    >2 echo "No timezone file for ${TIMEZONE} found; exiting..."
+    exit 1
+  fi
+
+  ACTIVE_TZFILE=$(readlink -f /etc/localtime)
+
+  if [ "${ACTIVE_TZFILE}" != "${EXPECTED_TZFILE}" ] ; then
+    >2 echo "System TZ is not set to ${TIMEZONE}; setting..."
+    timedatectl set-timezone ${TIMEZONE}
+  fi
+}
+
 check_user
 install_package httpd
 install_package php
+set_system_timezone 'Australia/Adelaide'
