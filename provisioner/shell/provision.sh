@@ -22,3 +22,4 @@ function install_package {
 
 check_user
 install_package httpd
+install_package php
