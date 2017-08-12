@@ -87,7 +87,7 @@ To test via Vagrant, add this box to your local cache
     vagrant box add --name centos7-puppet centos7-puppet.box
 
 #### Vagrant usage
-Once you've added the Base Box images to your local cache, there are preconfigured Vagrantfiles to bring the machines up.  Each machine has a port forward set up to access Apache inside.
+Once you've added the Base Box images to your local cache, there are preconfigured Vagrantfiles to bring the machines up.  Each machine has a port forward set up to access Apache inside.  The 'challenge' repository is mounted inside the VM via Shared Folders; you can access this at `/challenge`.
 
 To use this, you will need [Vagrant](https://vagrantup.com) installed; this was tested with v1.9.7, however anything recent should work.
 
