@@ -15,9 +15,9 @@ The tooling used in this demonstration will produce Vagrant Base Boxes for Virtu
 * Internet access
 
 #### Optional
-Packer will download a CentOS 7 Minimal install ISO (~700MB) from a mirror server to perform the build.  If you already have a local copy of `CentOS-7-x86_64-Minimal-1611.iso`, it can be reused by placing a copy in the following location:
+Packer will download a CentOS 7 Minimal install ISO (~700MB) from a mirror server to perform the build.  If you already have a local copy of `CentOS-7-x86_64-Minimal-1611.iso`, it can be reused by placing a copy in the following location inside the challenge repository:
 
-`challenge/packer/packer_cache/96cc79956121abb95c33408e5c687fd865f1062df6e0cd911204464c6fffd3ee.iso`
+`packer/packer_cache/96cc79956121abb95c33408e5c687fd865f1062df6e0cd911204464c6fffd3ee.iso`
 
 (The hex filename is important; it's a hash of the ISOs URL specified in the configuration)
 
@@ -46,7 +46,7 @@ After the install media is downloaded, this process takes around 10-15 minutes (
 
 To perform this, from the root of the repository:
 
-    cd challenge/packer
+    cd packer
     packer build phase-1_centos7.json
 
 After the install media has downloaded and Packer has prepared the VM definition, a VirtualBox video console will appear so the installation can be monitored.
@@ -65,7 +65,7 @@ After the main provisioner has completed, [Goss](https://github.com/aelsabbahy/g
 ##### Phase 2 - Shell provisioning
 To perform this, from the root of the repository:
 
-    cd challenge/packer
+    cd packer
     packer build phase-2_shell.json
 
 This process takes around 5 minutes.
@@ -77,7 +77,7 @@ To test via Vagrant, add this box to your local cache
 ##### Phase 2 - Puppet provisioning
 To perform this, from the root of the repository:
 
-    cd challenge/packer
+    cd packer
     packer build phase-2_puppet.json
 
 This process takes around 5 minutes.
@@ -98,19 +98,21 @@ Port 8080: [phpinfo](http://localhost:8080/phpinfo.php):
 
 (note, as this is for simulate running the scripts on existing infrastructure, the port forward has been added, but it won't respond until provisioner scripts are executed)
 
-    cd challenge/vagrant/centos7
+    cd vagrant/centos7
     vagrant up
 
 ##### Shell-provisioned
 Port 8081: [phpinfo](http://localhost:8081/phpinfo.php):
+From the root of the repository:
 
-    cd challenge/vagrant/shell
+    cd vagrant/shell
     vagrant up
 
 ##### Puppet-provisioned
 Port 8082: [phpinfo](http://localhost:8082/phpinfo.php):
+From the root of the repository:
 
-    cd challenge/vagrant/puppet
+    cd vagrant/puppet
     vagrant up
 
 ## Existing Infrastructure
@@ -145,12 +147,8 @@ As root:
     cd challenge/validation
     ./goss-linux-amd64 validate
 
-Sample output of a successful run:
-
-    [vagrant@localhost ~]$ cd challenge/validation/
-    [vagrant@localhost validation]$ sudo ./goss-linux-amd64 validate
+    # Sample output of a successful run:
     ...................
 
     Total Duration: 0.523s
     Count: 19, Failed: 0, Skipped: 0
-    [vagrant@localhost validation]$
