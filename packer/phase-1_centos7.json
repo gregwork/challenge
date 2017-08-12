@@ -11,6 +11,7 @@
         "<enter>"
       ],
       "disk_size": 3000,
+      "guest_additions_mode": "attach",
       "guest_os_type": "RedHat_64",
       "hard_drive_interface": "scsi",
       "http_directory": "http",
@@ -21,6 +22,7 @@
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
+      "ssh_wait_timeout": "30m",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -33,6 +35,21 @@
       "vm_name": "base-centos7"
     }
   ],
-  "post-processors": []
+  "post-processors": [
+    {
+      "output": "centos7.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
+      "scripts": [
+        "scripts/vagrant.sh",
+        "scripts/virtualbox.sh"
+      ],
+      "type": "shell"
+    }
+  ]
 }
 
