@@ -14,6 +14,10 @@ File {
   mode   => '0644',
 }
 
+Exec {
+  path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin',
+}
+
 node default {
   include roles::challenge
 }
