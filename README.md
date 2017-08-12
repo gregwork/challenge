@@ -96,7 +96,8 @@ To bring up and access the VMs:
 ##### Vanilla CentOS 7
 Port 8080: [phpinfo](http://localhost:8080/phpinfo.php):
 
-(note, as this is for simulate running the scripts on existing infrastructure, the port forward has been added, but it won't respond until provisioner scripts are executed)
+(note, as this is for simulating running the scripts on existing infrastructure, the port forward has been added, but it won't respond until provisioner scripts are executed)
+From the root of the repository:
 
     cd vagrant/centos7
     vagrant up
